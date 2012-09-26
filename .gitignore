@@ -4,3 +4,5 @@ pearfarm.spec
 library/Hamcrest/*
 composer.lock
 vendor/
+docs/_build/*
+!docs/_build/.empty
