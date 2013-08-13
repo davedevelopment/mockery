@@ -431,22 +431,6 @@ BODY;
         }
     }
 
-    protected function mockery_getMethods()
-    {
-        if (\$this->_mockery_methods) {
-            return \$this->_mockery_methods;
-        }
-
-        if (isset(\$this->_mockery_partial)) {
-            \$reflected = new \ReflectionObject(\$this->_mockery_partial);
-        } else {
-            \$reflected = new \ReflectionClass(\$this->_mockery_name);
-        }
-        \$this->_mockery_methods = \$reflected->getMethods();
-
-        return \$this->_mockery_methods;
-    }
-
     public function shouldReceive()
     {
         \$self = \$this;
@@ -716,6 +700,22 @@ BODY;
         if (false === stripos(\$name, '_mockery_') && method_exists(get_parent_class(\$this), '__isset')) {
             return parent::__isset(\$name);
         }
+    }
+
+    protected function mockery_getMethods()
+    {
+        if (\$this->_mockery_methods) {
+            return \$this->_mockery_methods;
+        }
+
+        if (isset(\$this->_mockery_partial)) {
+            \$reflected = new \ReflectionObject(\$this->_mockery_partial);
+        } else {
+            \$reflected = new \ReflectionClass(\$this->_mockery_name);
+        }
+        \$this->_mockery_methods = \$reflected->getMethods();
+
+        return \$this->_mockery_methods;
     }
 
 MOCK;
