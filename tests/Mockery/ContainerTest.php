@@ -916,6 +916,17 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $mock::mockMe(5));
         $this->assertEquals(3, $mock::keepMe(3));
     }
+
+    /** @group issue/154 
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage set() cannot be mocked as it is abstract and protected 
+     */
+    public function testShouldThrowIfAttemptingToStubAbstractProtectedMethod()
+    {
+        $mock = $this->container->mock('MockeryTest_AbstractWithAbstractMethod');
+        $mock->shouldReceive("set");
+
+    }
 }
 
 class MockeryTest_CallStatic {
