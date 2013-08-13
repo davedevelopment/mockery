@@ -917,7 +917,8 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, $mock::keepMe(3));
     }
 
-    /** @group issue/154 
+    /** 
+     * @group issue/154 
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage set() cannot be mocked as it is abstract and protected 
      */
