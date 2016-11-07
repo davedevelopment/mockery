@@ -64,9 +64,9 @@ class Episodes
     {
         $values = [];
         foreach ($this->episodes as $episode) {
-            $value[] = $callable($episode);
+            $values[] = $callable($episode);
         }
 
-        return $value;
+        return $values;
     }
 }
