@@ -32,14 +32,14 @@ class ClassNamePass implements Pass
 
         $className = $config->getShortName();
 
-        $code = str_replace(
-            'namespace Mockery;',
+        $code = preg_replace(
+            "/namespace [\\\\a-zA-Z0-9_]+;/",
             $namespace ? 'namespace ' . $namespace . ';' : '',
             $code
         );
 
-        $code = str_replace(
-            'class Mock',
+        $code = preg_replace(
+            "/class [a-zA-Z0-9_]+/",
             'class ' . $className,
             $code
         );

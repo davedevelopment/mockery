@@ -58,7 +58,7 @@ class ClassPass implements Pass
         }
 
         $code = preg_replace(
-            "/implements ([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/",
+            "/implements ([\\a-zA-Z_\x7f-\xff][\\a-zA-Z0-9_\x7f-\xff]*)/",
             "extends \\" . $className . " implements $1",
             $code
         );
