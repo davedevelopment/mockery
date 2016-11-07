@@ -57,9 +57,9 @@ class ClassPass implements Pass
             \Mockery::registerFileForCleanUp($tmpfname);
         }
 
-        $code = str_replace(
-            "implements MockInterface",
-            "extends \\" . $className . " implements MockInterface",
+        $code = preg_replace(
+            "/implements ([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/",
+            "extends \\" . $className . " implements $1",
             $code
         );
 
