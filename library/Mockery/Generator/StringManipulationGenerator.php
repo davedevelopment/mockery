@@ -25,15 +25,17 @@ use Mockery\Generator\StringManipulation\Pass\Pass;
 class StringManipulationGenerator implements Generator
 {
     protected $passes = array();
+    protected $baseFile = null;
 
-    public function __construct(array $passes)
+    public function __construct(array $passes, $baseFile = null)
     {
         $this->passes = $passes;
+        $this->baseFile = $baseFile ?? __DIR__.'/../Mock.php';
     }
 
     public function generate(MockConfiguration $config)
     {
-        $code = file_get_contents(__DIR__ . '/../Mock.php');
+        $code = file_get_contents($this->baseFile);
         $className = $config->getName() ?: $config->generateName();
 
         $namedConfig = $config->rename($className);
