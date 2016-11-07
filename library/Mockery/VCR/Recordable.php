@@ -38,7 +38,7 @@ class Recordable implements \Mockery\VCR\RecordableInterface
 
     public function _mockery_handleMethodCall($method, ...$args)
     {
-        $id = __CLASS__."::".$method."[".md5(serialize($args))."]";
+        $id = get_parent_class()."::".$method."[".md5(serialize($args))."]";
 
         return $this->_cassetteStack->playOrRecord($id, function () use ($method, $args) {
             return $this->_instance->$method(...$args);
