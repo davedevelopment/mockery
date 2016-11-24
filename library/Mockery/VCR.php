@@ -38,6 +38,10 @@ use Mockery\Generator\StringManipulation\Pass\RemoveUnserializeForInternalSerial
 use Mockery\Loader\EvalLoader;
 use Mockery\Loader\Loader;
 
+/**
+ * @TODO Record modes
+ * @TODO Don't repeat playback by default
+ */
 class VCR
 {
     private static $cassettes;
