@@ -33,6 +33,7 @@ use Mockery\Generator\StringManipulation\Pass\InterfacePass;
 use Mockery\Generator\StringManipulation\Pass\MethodDefinitionPass;
 use Mockery\Generator\StringManipulation\Pass\RemoveBuiltinMethodsThatAreFinalPass;
 use Mockery\Generator\StringManipulation\Pass\RemoveUnserializeForInternalSerializableClassesPass;
+use Mockery\Generator\StringManipulation\Pass\AvoidMethodClashPass;
 use Mockery\Loader\EvalLoader;
 use Mockery\Loader\Loader;
 
@@ -228,6 +229,7 @@ class Mockery
             new ClassNamePass(),
             new InstanceMockPass(),
             new InterfacePass(),
+            new AvoidMethodClashPass(),
             new MethodDefinitionPass(),
             new RemoveUnserializeForInternalSerializableClassesPass(),
             new RemoveBuiltinMethodsThatAreFinalPass(),
