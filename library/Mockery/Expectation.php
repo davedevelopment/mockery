@@ -433,6 +433,7 @@ class Expectation implements ExpectationInterface
      */
     public function withAnyArgs()
     {
+        $this->_noArgsExpectation = false;
         $this->_expectedArgs = array();
         return $this;
     }
