@@ -90,13 +90,62 @@ predictable.
 <a name="partial-doubles">
 ## Partial Doubles
 
+Partial doubles are useful when you want to stub out, set expectations for, or
+spy on *some* methods of a class, but run the actual code for other methods.
+
 <a name="runtime-partial-doubles">
 ### Runtime Partial Doubles
+
+What we call a runtime partial, involves creating a double and then telling it
+to make itself partial. Any method calls that the double hasn't been told to
+allow or expect, will act as they would on a normal instance of the object.
+
+``` php
+class Foo {
+    function bar() { return 123; }
+    function baz() { return $this->bar(); }
+}
+
+$foo = mock(Foo::class)->makePartial();
+$foo->bar(); // int(123);
+```
+
+We can then tell the mock to allow or expect calls as with any other mockery
+double.
+
+``` php
+$foo->allows()->bar()->andReturns(456);
+$foo->baz(); // int(456)
+```
 
 <a name="generated-partial-doubles">
 ### Generated Partial Doubles ⚠️️ 
 
 > Note: Generated Partial Doubles are supported, but we try to avoid using them.
+
+The second type of partial double we can create is what we call a generated
+partial. With generated partials, you specifically tell mockery which methods
+you want to be able to allow or expect calls to. All other methods will run the
+actual code *directly*, so stubs and expectations on these methods will not
+work.
+
+``` php
+class Foo {
+    function bar() { return 123; }
+    function baz() { return $this->bar(); }
+}
+
+$foo = mock("Foo[bar]");
+
+$foo->bar(); // error, no expectation set
+
+$foo->allows()->bar()->andReturns(456);
+$foo->bar(); // int(456)
+
+// setting an expectation for this has no effect
+$foo->allows()->baz()->andReturns(999);
+$foo->baz(); // int(456)
+```
 
 <a name="proxied-partial-doubles">
 ### Proxied Partial Doubles ☠️ 
