@@ -77,6 +77,14 @@ class Container
         $this->_loader = $loader ?: \Mockery::getDefaultLoader();
     }
 
+    public function __destruct()
+    {
+        // belt and braces...
+        $this->mockery_teardown();
+        $this->mockery_close();
+    }
+
+
     /**
      * Generates a new mock object for this container
      *
